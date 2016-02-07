@@ -1,0 +1,63 @@
+digraph cameron_method
+{
+	//rankdir=LR;
+	graph [nodesep=1, splines=false];//, ranksep=0];
+	node [shape=box, fontname=Helvetica, color="darkgreen"];
+	edge [fontname=Helvetica, fontcolor="darkgreen"];
+	fontname=Helvetica;
+
+	//--------------
+	// Detection
+	//--------------
+
+	subgraph detection {
+
+		img1 [label="Image", shape=none] ;
+		dict1 [label="Dictionary \n {..., \ncluster_k: {[0110],[1010]} , \n...}", shape=none] ;
+		img1 -> det1;
+		cluster -> dict1; 
+
+		subgraph cluster_build_dict {
+			label="Build the dictionary";
+			margin=10;
+			cluster [label="Cluster \n(k-means)"]; 
+			det1 [label="Detect"]; 
+			desc1 [label="Describe"]; 
+
+			det1 -> desc1 [label="{(x,y)}"];
+			desc1 -> cluster [label="{[01011...]}"];
+		}
+
+	}
+
+	//--------------
+	// Pre-processing
+	//--------------
+
+	subgraph preproc {
+		feature_hist [label="Feature Vector \n (Histogram) \n [390...]", shape=none] ;
+		img2 [label="Image", shape=none] ;
+		dict2 [label="Dictionary", shape=none] ;
+
+		img2 -> det2;
+		dict2 -> find_clusters;
+		hist_clust -> feature_hist;
+
+		subgraph cluster_prepoc {
+			label="Pre-process for classification";
+			margin=10;
+
+			det2 [label="Detect"]; 
+			desc2 [label="Describe"]; 
+			find_clusters [label="Find closest clusters"];
+			hist_clust [label="Histogram of \nencountered clusters"]; 
+
+			det2 -> desc2	[label="{(x,y)}"];
+			desc2 -> find_clusters [label="{[010011...]}"];
+			find_clusters -> hist_clust [label="{n°3,n°9,...}"];
+		}
+	}
+
+
+}
+	

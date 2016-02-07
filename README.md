@@ -4,4 +4,4 @@ Implementation of Cameron Schaeffer's image classifier, with an emphasis on comp
 
 *Computer Vision, Keypoint Detection & Description, SURF, FREAK, BRISK*
 
-![ab](ab)
+![figures/method.dot.svg]()
