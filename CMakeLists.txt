@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 2.8)
 
 project( cameron )
@@ -13,6 +12,12 @@ message(STATUS "    version: ${OpenCV_VERSION}")
 message(STATUS "    libraries: ${OpenCV_LIBS}")
 message(STATUS "    include path: ${OpenCV_INCLUDE_DIRS}")
 
+#file(GLOB my_SRC
+#	    "h/*.hpp"
+	    #	    "src/*.cpp"
+	    #	    "src/db/*.cpp"
+	    #)
+
 include_directories(
 	/usr/local/include
 	/usr/local
@@ -22,8 +27,14 @@ include_directories(
 add_executable( 
 	cameron 
 	main.cpp 
+	#	h/db.hpp
 	h/db.hpp
-	src/db.cpp
+	h/glob_img.hpp
+	src/glob_img.cpp
+	src/db/db.cpp
+	src/db/read_write.cpp
+	src/db/svm.cpp
+	#${my_SRC}
 )
 
 target_link_libraries( 
